@@ -45,6 +45,8 @@ const int   UNIT  = 1;
 #define DEBUG_GNSS  true  // Output GNSS information to Serial Monitor
 #define OLED        true  // Output messages to OLED display
 
+#define LOGGING_MODE 1 // Choose mode for data logging |0: Default| |1: Modified| (VL)
+
 #if DEBUG
 #define DEBUG_PRINT(x)            Serial.print(x)
 #define DEBUG_PRINTLN(x)          Serial.println(x)
@@ -93,9 +95,9 @@ byte          startTime           = 19;   // Logging start hour (UTC)
 byte          stopTime            = 22;   // Logging end hour (UTC)
 
 // Rolling alarm
-byte          awakeAlarmMinutes   = 10;    // Rolling minutes alarm
+byte          awakeAlarmMinutes   = 5;    // Rolling minutes alarm (OG : 10)
 byte          awakeAlarmHours     = 0;    // Rolling hours alarm
-byte          sleepAlarmMinutes   = 20;    // Rolling minutes alarm
+byte          sleepAlarmMinutes   = 5;    // Rolling minutes alarm (OG : 20) 
 byte          sleepAlarmHours     = 0;    // Rolling hours alarm
 
 // Manual alarm modes (debugging only)
@@ -134,6 +136,20 @@ long          rtcDrift            = 0;        // Counter for RTC drift
 // ----------------------------------------------------------------------------
 // Unions/structures
 // ----------------------------------------------------------------------------
+struct struct_gnssData
+{
+  uint16_t rtcYear;                           // (2 Byte)
+  uint8_t rtcMonth;                           // (1 Byte)
+  uint8_t rtcDay;                             // (1 Byte)
+  uint8_t rtcHour;                            // (1 Byte)
+  uint8_t rtcMinutes;                         // (1 Byte)
+  uint8_t rtcSeconds;                         // (1 Byte)
+  float latitudeGPS;                          // (4 Bytes) 
+  float longitudeGPS;                         // (4 Bytes) 
+  uint16_t hdopGPS;                           // (2 Bytes)
+  
+} gnssData;
+
 
 // Union to store online/offline states
 struct struct_online

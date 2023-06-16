@@ -166,6 +166,20 @@ void syncRtc()
         bool timeValidFlag = gnss.getConfirmedTime();
         byte fixType = gnss.getFixType();
 
+#if LOGGING_MODE == 1
+
+        gnssData.rtcYear          = rtc.year; + 2000;
+        gnssData.rtcMonth         = rtc.month;
+        gnssData.rtcDay           = rtc.dayOfMonth;
+        gnssData.rtcHour          = rtc.hour;
+        gnssData.rtcMinutes       = rtc.minute;
+        gnssData.rtcSeconds       = rtc.seconds;
+        gnssData.latitudeGPS      = gnss.getLatitude();
+        gnssData.longitudeGPS     = gnss.getLongitude();
+        gnssData.hdopGPS          = gnss.getPDOP();
+        
+#endif
+
 #if DEBUG_GNSS
         char gnssBuffer[100];
         sprintf(gnssBuffer, "%04u-%02d-%02d %02d:%02d:%02d.%03d,%ld,%ld,%d,%d,%d,%d,%d",

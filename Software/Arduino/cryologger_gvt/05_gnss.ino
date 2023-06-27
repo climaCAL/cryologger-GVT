@@ -168,7 +168,7 @@ void syncRtc()
 
 #if LOGGING_MODE == 1
 
-        gnssData.rtcYear          = rtc.year; + 2000;
+        gnssData.rtcYear          = rtc.year + 2000;
         gnssData.rtcMonth         = rtc.month;
         gnssData.rtcDay           = rtc.dayOfMonth;
         gnssData.rtcHour          = rtc.hour;
@@ -176,7 +176,11 @@ void syncRtc()
         gnssData.rtcSeconds       = rtc.seconds;
         gnssData.latitudeGPS      = gnss.getLatitude();
         gnssData.longitudeGPS     = gnss.getLongitude();
+        gnssData.altEllipsoid     = gnss.getAltitude();
+        gnssData.altMSL           = gnss.getAltitudeMSL();
         gnssData.hdopGPS          = gnss.getPDOP();
+        gnssData.nbrSat           = gnss.getSIV();
+        
         
 #endif
 

@@ -95,9 +95,9 @@ byte          startTime           = 19;   // Logging start hour (UTC)
 byte          stopTime            = 22;   // Logging end hour (UTC)
 
 // Rolling alarm
-byte          awakeAlarmMinutes   = 5;    // Rolling minutes alarm (OG : 10)
+byte          awakeAlarmMinutes   = 2;    // Rolling minutes alarm (OG : 10)
 byte          awakeAlarmHours     = 0;    // Rolling hours alarm
-byte          sleepAlarmMinutes   = 5;    // Rolling minutes alarm (OG : 20) 
+byte          sleepAlarmMinutes   = 8;    // Rolling minutes alarm (OG : 20) 
 byte          sleepAlarmHours     = 0;    // Rolling hours alarm
 
 // Manual alarm modes (debugging only)
@@ -144,9 +144,13 @@ struct struct_gnssData
   uint8_t rtcHour;                            // (1 Byte)
   uint8_t rtcMinutes;                         // (1 Byte)
   uint8_t rtcSeconds;                         // (1 Byte)
-  float latitudeGPS;                          // (4 Bytes) 
-  float longitudeGPS;                         // (4 Bytes) 
+  int32_t latitudeGPS;                          // (4 Bytes) *10^7 
+  int32_t  longitudeGPS;                         // (4 Bytes) *10^7
+// VOIR REF SUR L'ALTITUDE: https://eos-gnss.com/knowledge-base/articles/elevation-for-beginners/
+  int16_t altEllipsoid;                       //(2 Bytes) -> Altitude selon le modèle ellipsoïdale
+  int16_t   altMSL;                             //(2 Bytes) -> Altitude selon le modèle de la hauteur de la mer moyenne.
   uint16_t hdopGPS;                           // (2 Bytes)
+  uint8_t nbrSat;                               //(1 Byte)
   
 } gnssData;
 

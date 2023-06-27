@@ -69,7 +69,7 @@ void createDebugFile()
   }
 
   // Write header to file
-  debugFile.println("datetime,battery,year,month,day,hour,minutes,seconds,latitude,longitude,HDOP");
+  debugFile.println("datetime,battery,year,month,day,hour,minutes,seconds,latitude,longitude,AltitudeEllipsoid,AltitudeMSL,HDOP,FIX");
 
   // Sync the debug file
   if (!debugFile.sync())
@@ -88,9 +88,9 @@ void createDebugFile()
 }
 #endif
 // -----------------------------------------------------------------------------
-// Logging mode 0 : Data Log
+// Logging mode 1 : Data Log
 // -----------------------------------------------------------------------------
-#if LOGGING_MODE == 0
+#if LOGGING_MODE == 1
 // Log debugging information
 void logDebug()
 {
@@ -130,7 +130,10 @@ void logDebug()
   debugFile.print(gnssData.rtcSeconds);     debugFile.print(",");
   debugFile.print(gnssData.latitudeGPS);    debugFile.print(",");
   debugFile.print(gnssData.longitudeGPS);   debugFile.print(",");
+  debugFile.print(gnssData.altEllipsoid);   debugFile.print(",");
+  debugFile.print(gnssData.altMSL);         debugFile.print(",");
   debugFile.print(gnssData.hdopGPS);        debugFile.print(",");
+  debugFile.println(gnssData.nbrSat);       debugFile.print(",");
 
   // Sync the debug file
   if (!debugFile.sync())
@@ -176,9 +179,9 @@ void logDebug()
   timer.logDebug = millis() - loopStartTime;
 }
 // -----------------------------------------------------------------------------
-// Logging mode 1 : Data Log
+// Logging mode 0 : Data Log
 // -----------------------------------------------------------------------------
-#elif LOGGING_MODE == 1
+#elif LOGGING_MODE == 0
 // Log debugging information
 void logDebug()
 {
